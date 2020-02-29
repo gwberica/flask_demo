@@ -1,5 +1,6 @@
 # 创建项目配置类
 import datetime
+import logging
 
 from redis import StrictRedis
 
@@ -30,12 +31,16 @@ class DevelopmentConfig(Config):
     # 开发模式
     # 开启debug模式
     DEBUG = True
+    # 设置开发环境日志级别
+    LOG_LEVER = logging.DEBUG
 
 
 class ProductionConfig(Config):
     # 线上模式配置
     # 关闭debug模式
     DEBUG = False
+    # 设置开发环境日志级别
+    LOG_LEVER = logging.WARNING
 
 
 config_dict = {
