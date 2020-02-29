@@ -1,43 +1,37 @@
-from flask import Flask
+import datetime
+
+from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 from redis import StrictRedis
 from flask_wtf.csrf import CSRFProtect
-
-
-# 创建项目配置类
-
-
-class Config(object):
-    # 开启debug模式
-    DEBUG = True
-    # mysql的配置信息
-    SQLALCHEMY_DATABASE_URI = "mysql://root:qiushibaike1566@127.0.0.1:3306/information"
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
-
-    REDIS_HOST = "127.0.0.1"
-    REDIS_PORT = 6379
-    REDIS_DB = 1
-
+from flask_session import Session
+from flask_script import Manager
+from config import config_dict
 
 # 1.创建app对象
-
 app = Flask(__name__)
-
+config_class = config_dict["dev"]
 # 2将配置注册到app中
-app.config.from_object(Config)
+app.config.from_object(config_class)
 # 3创建数据库对象
 db = SQLAlchemy(app)
 # 4 创建redis链接对象
-redis_store = StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT, db=Config.REDIS_DB, decode_responses=True)
+redis_store = StrictRedis(host=config_class.REDIS_HOST, port=config_class.REDIS_PORT, db=config_class.REDIS_DB, decode_responses=True)
 
-# 5 开启flask 的csrf的保护机制
-csrf = CSRFProtect()
+# 5 开启flask后端的csrf的保护机制
+csrf = CSRFProtect(app)
+
+# 6借用第三方session类 修改session的存储位置
+Session(app)
+# 7创建manage管理类
+manage = Manager(app)
 
 
-@app.route("/demo")
+@app.route("/")
 def index():
+    session["name"] = "curry"
     return "hello world"
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True, port=1234)
+    manage.run()
