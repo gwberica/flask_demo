@@ -1,0 +1,150 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
+{#    <meta name="description" content="nothing to describe">#}
+{#    <meta name="author" content="I'm just nobody">#}
+{#    <meta name="generator" content="Jekyll v3.8.6">#}
+{#    <title>yalla数据管理后台</title>#}
+{##}
+{#    <!--直接从CDN加载-->#}
+{#    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">#}
+{#    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"#}
+{#          rel="stylesheet">#}
+{#    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.12/css/bootstrap-select.min.css"#}
+{#          rel="stylesheet">#}
+{##}
+{##}
+{#    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>#}
+{#    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
+{#    <!--日期组件-->#}
+{#    <script src="/static/js/moment.js"></script>#}
+{#    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>#}
+{#    <!--自己写的功能函数-->#}
+{#    <script src="/static/js/utils.js"></script>#}
+{##}
+{#</head>#}
+{#<body>#}
+{#{{ data }}#}
+{#<div class="row">#}
+{#    <div class="panel-heading">#}
+{#        <button class="btn btn-default pull-left"><a href="/room_info"> 房间列表 </a></button>#}
+{#        <button class="btn btn-default pull-left"><a href="/new_room_info"> 新房间列表 </a></button>#}
+{#        <button class="btn btn-default pull-left"><a href="/hot_room">热门房间列表 </a></button>#}
+{#        <button class="btn btn-default pull-left"><a href="/country">国家信息数据 </a></button>#}
+{#    </div>#}
+{#    <div class="col-md-12">#}
+{#        <div class="panel panel-default">#}
+{#            <div class="table-responsive">#}
+{#                <table class="table table-striped table-responsive">#}
+{#                    <thead>#}
+{#                    <tr>#}
+{#                        <th>房间ID</th>#}
+{#                        <th>等级</th>#}
+{#                        <th>#}
+{#                            <button><a href="/room_info?sort=onlinenum">在线人数</a></button>#}
+{#                        </th>#}
+{#                        <th>热度</th>#}
+{#                        <th>国家</th>#}
+{#                        <th>是否官方账户</th>#}
+{#                        <th>房间类别</th>#}
+{#                        <th>#}
+{#                            <button><a href="/room_info?sort=data_time">时间</a></button>#}
+{#                        </th>#}
+{#                        <th>#}
+{#                            <button><a href="/room_info?sort=day_sumamount">24小时金币</a></button>#}
+{#                        </th>#}
+{#                        <th>#}
+{#                            <button><a href="/room_info?sort=week_sumamount">7天金币</a></button>#}
+{#                        </th>#}
+{#                        <th>#}
+{#                            <button><a href="/room_info?sort=membernum">累计人数</a></button>#}
+{#                        </th>#}
+{#                    </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{#                    {% for i in data %}#}
+{#                        <tr>#}
+{#                            <td>{{ i.barid }}</td>#}
+{#                            <td>{{ i.barlevel }}</td>#}
+{#                            <td>{{ i.onlinenum }}</td>#}
+{#                            <td>{{ i.heatnow }}</td>#}
+{#                            <td>{{ i.name }}</td>#}
+{#                            <td>{{ i.isofficial }}</td>#}
+{#                            <td>{{ i.labelname }}</td>#}
+{#                            <td>{{ i.data_time }}</td>#}
+{#                            <td>{{ i.day_sumamount }}</td>#}
+{#                            <td>{{ i.week_sumamount }}</td>#}
+{#                            <td>{{ i.membernum }}</td>#}
+{#                        </tr>#}
+{#                    {% endfor %}#}
+{##}
+{#                    </tbody>#}
+{#                </table>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#</body>#}
+{#</html>#}
+
+{% extends 'base.html' %}
+
+{% block contentBlock %}
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="table-responsive">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                    <tr>
+                        <th>房间ID</th>
+                        <th>等级</th>
+                        <th>
+                            <a href="/room_info?sort=onlinenum">在线人数</a>
+                        </th>
+                        <th>热度</th>
+                        <th>国家</th>
+                        <th>是否官方账户</th>
+                        <th>房间类别</th>
+                        <th>
+                            <a href="/room_info?sort=data_time">时间</a>
+                        </th>
+                        <th>
+                            <a href="/room_info?sort=day_sumamount">24小时金币</a>
+                        </th>
+                        <th>
+                            <a href="/room_info?sort=week_sumamount">7天金币</a>
+                        </th>
+                        <th color="red">
+                           <a href="/room_info?sort=membernum">累计人数</a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in data %}
+                        <tr>
+                            <td>
+                                <a href="/personal?barid={{ i.barid }}">{{ i.barid }}</a>
+                            </td>
+                            <td>{{ i.barlevel }}</td>
+                            <td>{{ i.onlinenum }}</td>
+                            <td>{{ i.heatnow }}</td>
+                            <td>{{ i.name }}</td>
+                            <td>{{ i.isofficial }}</td>
+                            <td>{{ i.labelname }}</td>
+                            <td>{{ i.data_time }}</td>
+                            <td>{{ i.day_sumamount }}</td>
+                            <td>{{ i.week_sumamount }}</td>
+                            <td>{{ i.membernum }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

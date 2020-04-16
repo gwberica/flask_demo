@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from redis import StrictRedis
 from flask_wtf.csrf import CSRFProtect
 from flask_session import Session
-from config import config_dict
 import logging
 from logging.handlers import RotatingFileHandler
 from config import config_dict
@@ -44,7 +43,28 @@ def create_app(environ):
 
     # 6借用第三方session类 修改session的存储位置
     Session(app)
-    # 注册蓝图
-    from info.module.index import index_bp
-    app.register_blueprint(index_bp)
+    # 注册房间列表蓝图
+    from info.module.admin import room_info_bp
+    app.register_blueprint(room_info_bp)
+    # 注册新房间列表蓝图
+    from info.module.admin import new_room_info_bp
+    app.register_blueprint(new_room_info_bp)
+
+    # 注册热门房间列表蓝图
+    from info.module.admin import hot_room_bp
+    app.register_blueprint(hot_room_bp)
+    # 注册国家列表蓝图
+    from info.module.admin import country_hp
+    app.register_blueprint(country_hp)
+
+    # 注册房间按照时间列表蓝图
+    from info.module.admin import room_hp
+    app.register_blueprint(room_hp)
+    # 注册房间按照类别列表蓝图
+    from info.module.admin import type_hp
+    app.register_blueprint(type_hp)
+    # 注册个人详情路由
+    from info.module.admin import personal_hp
+    app.register_blueprint(personal_hp)
+
     return app

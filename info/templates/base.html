@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="nothing to describe">
+    <meta name="author" content="I'm just nobody">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>yalla数据管理后台</title>
+
+    <!--直接从CDN加载-->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.12/css/bootstrap-select.min.css"
+          rel="stylesheet">
+
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="./static/js/datetimepicker.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--日期组件-->
+    <script src="/static/js/moment.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <!--自己写的功能函数-->
+    <script src="/static/js/utils.js"></script>
+
+</head>
+<body>
+{#{{ data }}#}
+<div class="row">
+
+    <div class="panel-heading">
+        <button class="btn btn-default pull-left"><a href="/room_info"> 房间列表 </a></button>
+        <button class="btn btn-default pull-left"><a href="/new_room_info"> 新房间列表 </a></button>
+        <button class="btn btn-default pull-left"><a href="/hot_room">热门房间列表 </a></button>
+        <button class="btn btn-default pull-left"><a href="/country">国家分类数据 </a></button>
+        <button class="btn btn-default pull-left"><a href="/room">每天汇总数据 </a></button>
+        <button class="btn btn-default pull-left"><a href="/type">房间类型分类数据 </a></button>
+    </div>
+
+     {% block contentBlock %}
+
+        {% endblock %}
+
+</div>
+
+</body>
+</html>
